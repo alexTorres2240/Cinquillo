@@ -17,8 +17,11 @@ public class Juego {
         for (int i=0; i<cantidadJugadores; i++){
             jugadores.add(new Jugador("Jugador "+i));
         }
+    }
+    
+    public void repartirCartas(){
         int index;
-        switch (cantidadJugadores){
+        switch (this.jugadores.size()){
             case 2:
                 for (int i=0; i<20; i++){
                     index = (int) (Math.random()*(baraja.getMazo().size()));
@@ -67,6 +70,7 @@ public class Juego {
     
     public static void main(String[] args){
         Juego juego = new Juego(4);
+        juego.repartirCartas();
         JFrame jugador1 = new JFrame ("Jugador 1");
         JFrame jugador2 = new JFrame ("Jugador 2");
         JFrame jugador3 = new JFrame ("Jugador 3");
@@ -109,4 +113,3 @@ public class Juego {
         jugador4.setVisible(true);
     }
 }
-
