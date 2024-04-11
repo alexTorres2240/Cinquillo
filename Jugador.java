@@ -38,14 +38,36 @@ public class Jugador {
         return this.mano;
     }
     
+    public boolean buscarCarta(Carta carta){
+        boolean bandera = false;
+        for (int i=0; i<this.mano.size(); i++) {
+            if (this.mano.get(i).getRuta().equals("imagenes/" + carta.getFigura() + carta.getValor() + ".jpg")){
+                bandera = true;
+            }
+        }
+        return bandera;
+    }
+    
+    public void jugarCarta(int carta){
+        this.mano.get(carta-1).setVisible(false);
+    }
+    
     public JPanel getPanelMano(){
         JPanel panel = new JPanel(new FlowLayout());
         for (int i=0; i<this.mano.size(); i++) {
             ImageIcon icono = new ImageIcon(this.mano.get(i).getIcono().getImage().getScaledInstance(54, 72, Image.SCALE_DEFAULT));
-            JButton etiqueta = new JButton(icono);
+            JLabel etiqueta = new JLabel(icono);
+            JPanel etiquetaPanel = new JPanel(new BorderLayout());
+            etiquetaPanel.add(etiqueta, BorderLayout.CENTER);
+            JLabel etiquetaIndice = new JLabel(String.valueOf(i+1));
+            etiquetaIndice.setHorizontalAlignment(JLabel.CENTER);
+            etiquetaIndice.setForeground(Color.BLACK);
+            etiquetaIndice.setFont(new Font("Arial", Font.BOLD, 14));
+            etiquetaPanel.add(etiquetaIndice, BorderLayout.NORTH);
             etiqueta.setPreferredSize(new Dimension(58, 74));
             panel.setBackground(new Color(53, 148, 100));
-            panel.add(etiqueta);
+            etiqueta.setVisible(true);
+            panel.add(etiquetaPanel);
         }
         return panel;
     }
