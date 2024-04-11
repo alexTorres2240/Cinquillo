@@ -81,10 +81,10 @@ public class Juego {
                     panelSecundario = this.jugadores.get(i).getPanelMano();
                     switch (i){
                         case 0:
-                            panelSecundario.setBounds(100, 620, 1160, 80);
+                            panelSecundario.setBounds(50, 605, 1240, 95);
                             break;
                         case 1:
-                            panelSecundario.setBounds(100, 0, 1160, 80);
+                            panelSecundario.setBounds(50, 0, 1240, 95);
                             break;
                     }
                     this.panelPrincipal.add(panelSecundario);
@@ -95,13 +95,13 @@ public class Juego {
                     panelSecundario = this.jugadores.get(i).getPanelMano();
                     switch (i){
                         case 0:
-                            panelSecundario.setBounds(450, 520, 464, 160);
+                            panelSecundario.setBounds(450, 488, 464, 192);
                             break;
                         case 1:
-                            panelSecundario.setBounds(50, 0, 464, 160);
+                            panelSecundario.setBounds(50, 0, 464, 192);
                             break;
                         case 2:
-                            panelSecundario.setBounds(825, 0, 464, 160);
+                            panelSecundario.setBounds(850, 0, 464, 192);
                             break;
                     }
                     this.panelPrincipal.add(panelSecundario);
@@ -112,16 +112,16 @@ public class Juego {
                     panelSecundario = this.jugadores.get(i).getPanelMano();
                     switch (i){
                         case 0:
-                            panelSecundario.setBounds(475, 520, 320, 160);
+                            panelSecundario.setBounds(525, 488, 320, 192);
                             break;
                         case 1:
-                            panelSecundario.setBounds(25, 260, 320, 160);
+                            panelSecundario.setBounds(25, 228, 320, 192);
                             break;
                         case 2:
-                            panelSecundario.setBounds(475, 0, 320, 160);
+                            panelSecundario.setBounds(525, 0, 320, 192);
                             break;
                         case 3:
-                            panelSecundario.setBounds(1025, 260, 320, 160);
+                            panelSecundario.setBounds(1025, 228, 320, 192);
                             break;
                     }
                     this.panelPrincipal.add(panelSecundario);
@@ -129,33 +129,35 @@ public class Juego {
                 break;
         }
         mesa.llenarMesa();
-        panelSecundario = mesa.getPanelBastos();
-        panelSecundario.setBounds(300, 200, 740, 240);
-        this.panelPrincipal.add(panelSecundario);
-        panelSecundario = mesa.getPanelCopas();
-        panelSecundario.setBounds(300, 250, 740, 240);
-        this.panelPrincipal.add(panelSecundario);
-        panelSecundario = mesa.getPanelEspadas();
-        panelSecundario.setBounds(300, 300, 740, 240);
-        this.panelPrincipal.add(panelSecundario);
-        panelSecundario = mesa.getPanelOros();
-        panelSecundario.setBounds(300, 350, 740, 240);
-        this.panelPrincipal.add(panelSecundario);
+        
+        JPanel panelOros = mesa.getPanelOros();
+        panelOros.setBounds(320, 385, 740, 240);
+        this.panelPrincipal.add(panelOros);
+        
+        JPanel panelEspadas = mesa.getPanelEspadas();
+        panelEspadas.setBounds(320, 335, 740, 240);
+        this.panelPrincipal.add(panelEspadas);
+        
+        JPanel panelCopas = mesa.getPanelCopas();
+        panelCopas.setBounds(320, 285, 740, 240);
+        this.panelPrincipal.add(panelCopas);
+        
+        JPanel panelBastos = mesa.getPanelBastos();
+        panelBastos.setBounds(320, 235, 740, 240);
+        this.panelPrincipal.add(panelBastos);
+        
         return this.panelPrincipal;
     }
     
     public static void main(String[] args){
-        
+        Carta cartaJugada = new Carta("oros", 5);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Cantidad de jugadores: ");
         int cantidad = scanner.nextInt();
         Juego juego = new Juego(cantidad);
         juego.repartirCartas();
-        JPanel panelPrincipal = new JPanel();
         JFrame ventanaJuego = new JFrame("Juego");
-        panelPrincipal.setBackground(new Color(53, 148, 100));
-        panelPrincipal = juego.actualizarPanel();
-        ventanaJuego.getContentPane().add(panelPrincipal);
+        ventanaJuego.getContentPane().add(juego.actualizarPanel());
         ventanaJuego.pack();
         ventanaJuego.setExtendedState(JFrame.MAXIMIZED_BOTH);
         ventanaJuego.setLocationRelativeTo(null);
