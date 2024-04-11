@@ -11,6 +11,7 @@ public class Juego {
     private Baraja baraja;
     private Mesa mesa;
     private JPanel panelPrincipal;
+    public JFrame ventana = new JFrame("Juego");
     
     public Juego(int cantidadJugadores){
         jugadores = new ArrayList<>();
@@ -22,6 +23,10 @@ public class Juego {
         }
         panelPrincipal = new JPanel(null);
         panelPrincipal.setBackground(new Color(53, 148, 100));
+    }
+    
+    public JPanel getPanelPrincipal(){
+        return this.panelPrincipal;
     }
     
     public void repartirCartas(){
@@ -73,7 +78,8 @@ public class Juego {
         }
     }
     
-    public JPanel actualizarPanel(){
+    public void actualizarPanel(){
+        this.panelPrincipal.removeAll();
         JPanel panelSecundario = new JPanel();
         switch (this.jugadores.size()){
             case 2:
@@ -81,10 +87,10 @@ public class Juego {
                     panelSecundario = this.jugadores.get(i).getPanelMano();
                     switch (i){
                         case 0:
-                            panelSecundario.setBounds(50, 605, 1240, 95);
+                            panelSecundario.setBounds(50, 605, 1260, 95);
                             break;
                         case 1:
-                            panelSecundario.setBounds(50, 0, 1240, 95);
+                            panelSecundario.setBounds(50, 0, 1260, 95);
                             break;
                     }
                     this.panelPrincipal.add(panelSecundario);
@@ -128,7 +134,7 @@ public class Juego {
                 }
                 break;
         }
-        mesa.llenarMesa();
+        
         
         JPanel panelOros = mesa.getPanelOros();
         panelOros.setBounds(320, 385, 740, 240);
@@ -146,23 +152,38 @@ public class Juego {
         panelBastos.setBounds(320, 235, 740, 240);
         this.panelPrincipal.add(panelBastos);
         
-        return this.panelPrincipal;
+        this.panelPrincipal.revalidate();
+        this.panelPrincipal.repaint();
+    }
+    
+    public void actualizarVentana (){
+        this.ventana.getContentPane().removeAll();
+        this.ventana.getContentPane().add(this.panelPrincipal);
+        this.ventana.revalidate();
+        this.ventana.repaint();
+        this.ventana.pack();
+        this.ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.ventana.setLocationRelativeTo(null);
+        this.ventana.setVisible(true);
+        this.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public static void main(String[] args){
-        Carta cartaJugada = new Carta("oros", 5);
+        Carta cartaJugada = new Carta("espadas", 5);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Cantidad de jugadores: ");
         int cantidad = scanner.nextInt();
         Juego juego = new Juego(cantidad);
         juego.repartirCartas();
-        JFrame ventanaJuego = new JFrame("Juego");
-        ventanaJuego.getContentPane().add(juego.actualizarPanel());
-        ventanaJuego.pack();
-        ventanaJuego.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        ventanaJuego.setLocationRelativeTo(null);
-        ventanaJuego.setVisible(true);
-        ventanaJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        juego.mesa.llenarMesa();
+        juego.mesa.jugarCarta(cartaJugada);
+        juego.actualizarPanel();
+        juego.actualizarVentana();
+        cartaJugada = new Carta("oros", 5);
+        juego.jugadores.get(0).jugarCarta(5);
+        juego.mesa.jugarCarta(cartaJugada);
+        juego.actualizarPanel();
+        juego.actualizarVentana();
     }
     
 }
