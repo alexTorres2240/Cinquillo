@@ -168,22 +168,75 @@ public class Juego {
         this.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public static void main(String[] args){
-        Carta cartaJugada = new Carta("espadas", 5);
+    public int buscarPrimerTurno(){
+        int turno = 0;
+        for (int i=0; i<this.jugadores.size(); i++){
+            if (this.jugadores.get(i).buscarCarta(new Carta("oros", 5))){
+                turno = i+1;
+                for (int j=0; j<this.jugadores.get(i).getMano().size(); j++){
+                    if (this.jugadores.get(i).getMano().get(j).equals(new Carta("oros", 5))){
+                        this.jugadores.get(i).jugarCarta(j+1);
+                    }
+                }
+            }
+        }
+        this.mesa.llenarMesa();
+        this.mesa.jugarCarta(new Carta("oros", 5));
+        return turno;
+    }
+    
+    public static void main(String[] args){ 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Cantidad de jugadores: ");
         int cantidad = scanner.nextInt();
+        int turno;
+        int cartaAJugar;
+        boolean ganador = true;
         Juego juego = new Juego(cantidad);
+        Carta cartaJugada = new Carta("oros", 5);
         juego.repartirCartas();
-        juego.mesa.llenarMesa();
-        juego.mesa.jugarCarta(cartaJugada);
-        juego.actualizarPanel();
-        juego.actualizarVentana();
-        cartaJugada = new Carta("oros", 5);
-        juego.jugadores.get(0).jugarCarta(5);
-        juego.mesa.jugarCarta(cartaJugada);
-        juego.actualizarPanel();
-        juego.actualizarVentana();
+        turno = juego.buscarPrimerTurno();
+        do{
+            switch (turno){
+                case 1:
+                    System.out.println("Jugador" + turno + ":");
+                    cartaAJugar = scanner.nextInt();
+                    juego.jugadores.get(turno-1).jugarCarta(cartaAJugar);
+                    juego.mesa.jugarCarta(juego.jugadores.get(turno-1).getMano().get(cartaAJugar-1));
+                    juego.actualizarPanel();
+                    juego.actualizarVentana();
+                    turno++;
+                    break;
+                case 2:
+                    System.out.println("Jugador" + turno + ":");
+                    cartaAJugar = scanner.nextInt();
+                    juego.jugadores.get(turno-1).jugarCarta(cartaAJugar);
+                    juego.mesa.jugarCarta(juego.jugadores.get(turno-1).getMano().get(cartaAJugar-1));
+                    juego.actualizarPanel();
+                    juego.actualizarVentana();
+                    turno++;
+                    break;
+                case 3:
+                    System.out.println("Jugador" + turno + ":");
+                    cartaAJugar = scanner.nextInt();
+                    juego.jugadores.get(turno-1).jugarCarta(cartaAJugar);
+                    juego.mesa.jugarCarta(juego.jugadores.get(turno-1).getMano().get(cartaAJugar-1));
+                    juego.actualizarPanel();
+                    juego.actualizarVentana();
+                    turno++;
+                    break;
+                case 4:
+                    System.out.println("Jugador" + turno + ":");
+                    cartaAJugar = scanner.nextInt();
+                    juego.jugadores.get(turno-1).jugarCarta(cartaAJugar);
+                    juego.mesa.jugarCarta(juego.jugadores.get(turno-1).getMano().get(cartaAJugar-1));
+                    juego.actualizarPanel();
+                    juego.actualizarVentana();
+                    turno = 1;
+                    break;
+            }
+        }while (ganador);
+        
     }
     
 }
