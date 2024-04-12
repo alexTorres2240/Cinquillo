@@ -50,6 +50,88 @@ public class Mesa {
         }
     }
     
+    public boolean validarCarta(Carta carta){
+        boolean bandera = false;
+        switch (carta.getFigura()){
+            case "bastos":
+                if (carta.getValor() == 5){
+                    if (!this.escaleraBastos.get(4).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 1){
+                    if (!this.escaleraBastos.get(0).getVisible() && this.escaleraBastos.get(1).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 10){
+                    if (!this.escaleraBastos.get(9).getVisible() && this.escaleraBastos.get(8).getVisible()){
+                        bandera = true;
+                    }
+                }else{
+                    if (!this.escaleraBastos.get(carta.getValor()-1).getVisible() && (this.escaleraBastos.get(carta.getValor()-2).getVisible() || this.escaleraBastos.get(carta.getValor()).getVisible())){
+                        bandera = true;
+                    }
+                }
+                break;
+            case "copas":
+                if (carta.getValor() == 5){
+                    if (!this.escaleraCopas.get(4).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 1){
+                    if (!this.escaleraCopas.get(0).getVisible() && this.escaleraCopas.get(1).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 10){
+                    if (!this.escaleraCopas.get(9).getVisible() && this.escaleraCopas.get(8).getVisible()){
+                        bandera = true;
+                    }
+                }else{
+                    if (!this.escaleraCopas.get(carta.getValor()-1).getVisible() && (this.escaleraCopas.get(carta.getValor()-2).getVisible() || this.escaleraCopas.get(carta.getValor()).getVisible())){
+                        bandera = true;
+                    }
+                }
+                break;
+            case "espadas":
+                if (carta.getValor() == 5){
+                    if (!this.escaleraEspadas.get(4).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 1){
+                    if (!this.escaleraEspadas.get(0).getVisible() && this.escaleraEspadas.get(1).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 10){
+                    if (!this.escaleraEspadas.get(9).getVisible() && this.escaleraEspadas.get(8).getVisible()){
+                        bandera = true;
+                    }
+                }else{
+                    if (!this.escaleraEspadas.get(carta.getValor()-1).getVisible() && (this.escaleraEspadas.get(carta.getValor()-2).getVisible() || this.escaleraEspadas.get(carta.getValor()).getVisible())){
+                        bandera = true;
+                    }
+                }
+            case "oros":
+                if (carta.getValor() == 5){
+                    if (!this.escaleraOros.get(4).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 1){
+                    if (!this.escaleraOros.get(0).getVisible() && this.escaleraOros.get(1).getVisible()){
+                        bandera = true;
+                    }
+                }else if (carta.getValor() == 10){
+                    if (!this.escaleraOros.get(9).getVisible() && this.escaleraOros.get(8).getVisible()){
+                        bandera = true;
+                    }
+                }else{
+                    if (!this.escaleraOros.get(carta.getValor()-1).getVisible() && (this.escaleraOros.get(carta.getValor()-2).getVisible() || this.escaleraOros.get(carta.getValor()).getVisible())){
+                        bandera = true;
+                    }
+                }
+                break;
+        }
+        return bandera;
+    }
+    
     public void jugarCarta(Carta carta){
         switch (carta.getFigura()){
             case "bastos":
