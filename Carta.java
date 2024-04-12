@@ -21,6 +21,10 @@ public class Carta {
         this.icono = new ImageIcon(ruta);
     }
     
+    public String getRuta(){
+        return this.ruta;
+    }
+    
     public void setFigura(String figura){
         this.figura = figura;
         if (this.visible == true){
