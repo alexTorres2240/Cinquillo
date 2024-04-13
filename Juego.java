@@ -191,9 +191,8 @@ public class Juego {
         int cantidad = scanner.nextInt();
         int turno;
         int cartaAJugar;
-        boolean ganador = true;
         Juego juego = new Juego(cantidad);
-        Carta cartaJugada = new Carta("oros", 5);
+        int ganador = 0;
         juego.repartirCartas();
         turno = juego.buscarPrimerTurno();
         juego.actualizarPanel();
@@ -202,6 +201,10 @@ public class Juego {
             switch (turno){
                 case 1:
                     do{
+                        if (juego.jugadores.get(turno-1).validarVictoria()){
+                            ganador = turno;
+                            break;
+                        }
                         do{
                            System.out.println("Jugador " + turno + ":");
                            cartaAJugar = scanner.nextInt(); 
@@ -224,6 +227,10 @@ public class Juego {
                     break;
                 case 2:
                     do{
+                        if (juego.jugadores.get(turno-1).validarVictoria()){
+                            ganador = turno;
+                            break;
+                        }
                         do{
                            System.out.println("Jugador " + turno + ":");
                            cartaAJugar = scanner.nextInt(); 
@@ -256,6 +263,10 @@ public class Juego {
                     break;
                 case 3:
                     do{
+                        if (juego.jugadores.get(turno-1).validarVictoria()){
+                            ganador = turno;
+                            break;
+                        }
                         do{
                            System.out.println("Jugador " + turno + ":");
                            cartaAJugar = scanner.nextInt();
@@ -285,6 +296,10 @@ public class Juego {
                     break;
                 case 4:
                     do{
+                        if (juego.jugadores.get(turno-1).validarVictoria()){
+                            ganador = turno;
+                            break;
+                        }
                         do{
                            System.out.println("Jugador " + turno + ":");
                            cartaAJugar = scanner.nextInt(); 
@@ -306,7 +321,9 @@ public class Juego {
                     turno = 1;
                     break;
             }
-        }while (ganador);
+        }while (ganador == 0);
+        
+        System.out.println("JUGADOR " + ganador + " HA GANADO");
         
     }
     
